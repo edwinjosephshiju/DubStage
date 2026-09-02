@@ -1,0 +1,6 @@
+{
+  "name": "DubStage",
+  "description": "Scene voice dubbing studio and audio clip pack maker with live waveform alignment and multi-track mix export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

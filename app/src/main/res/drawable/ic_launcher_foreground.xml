@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 1. Top Right Disco Globe / Sparkle Stars -->
+    <!-- Disco grid sphere -->
+    <path
+        android:pathData="M88,18m-7,0a7,7 0 1,0 14,0a7,7 0 1,0 -14,0"
+        android:strokeWidth="0.8"
+        android:strokeColor="#80FFFFFF"
+        android:fillColor="#15FFFFFF" />
+    <path
+        android:pathData="M81,18 L95,18 M88,11 L88,25 M83,14 C86,17 86,19 83,22 M93,14 C90,17 90,19 93,22"
+        android:strokeWidth="0.6"
+        android:strokeColor="#90FFFFFF" />
+    <!-- 4-point Sparkle Star -->
+    <path
+        android:pathData="M97,11 Q97,14 100,14 Q97,14 97,17 Q97,14 94,14 Q97,14 97,11 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M78,9 Q78,11 80,11 Q78,11 78,13 Q78,11 76,11 Q78,11 78,9 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- 2. Speech Bubble (Top Left) -->
+    <path
+        android:pathData="M18,17 C18,12 36,12 36,17 C36,23 30,26 23,26 L20,30 L21,26 C18,25 18,21 18,17 Z"
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeColor="#1E293B" />
+    <!-- Speech bubble crown & sound text lines -->
+    <path
+        android:pathData="M24,14 L25,16 L27,14 L29,16 L30,14 L30,17 L24,17 Z"
+        android:fillColor="#1E293B" />
+    <path
+        android:pathData="M21,19 L33,19 M21,22 L31,22"
+        android:strokeWidth="1"
+        android:strokeLineCap="round"
+        android:strokeColor="#1E293B" />
+
+    <!-- 3. Character Head & Hair -->
+    <!-- Curly Retro Hair -->
+    <path
+        android:pathData="M43,26 C38,18 48,10 59,10 C69,10 75,17 73,26 C75,31 71,36 68,37 C64,38 48,38 44,35 C41,33 41,29 43,26 Z"
+        android:fillColor="#181310" />
+    <path
+        android:pathData="M44,22 C43,15 52,11 60,11 C68,11 72,16 71,22"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeColor="#2B1F17" />
+
+    <!-- Face / Skin -->
+    <path
+        android:pathData="M46,25 C46,23 70,23 70,25 C71,33 70,43 62,49 C55,49 46,42 46,25 Z"
+        android:fillColor="#E2A779" />
+
+    <!-- Sunglasses Frame -->
+    <path
+        android:pathData="M45,28 C45,26 55,25 57,28 C59,25 69,26 69,28 L68,34 C67,36 59,36 58,34 L56,34 C55,36 47,36 46,34 Z"
+        android:fillColor="#0F172A" />
+    <!-- Sunglasses Lens L & R with Glare Reflection -->
+    <path
+        android:pathData="M47,29 C47,28 54,28 54,29 L54,32 C54,34 48,34 47,32 Z"
+        android:fillColor="#1E293B" />
+    <path
+        android:pathData="M50,29 L48,33"
+        android:strokeWidth="0.9"
+        android:strokeColor="#60A5FA" />
+    <path
+        android:pathData="M60,29 C60,28 67,28 67,29 L67,32 C67,34 61,34 60,32 Z"
+        android:fillColor="#1E293B" />
+    <path
+        android:pathData="M63,29 L61,33"
+        android:strokeWidth="0.9"
+        android:strokeColor="#60A5FA" />
+
+    <!-- Retro Mustache -->
+    <path
+        android:pathData="M51,40 C53,39 57,40 57,41 C57,40 61,39 63,40 C65,42 61,44 57,43 C53,44 49,42 51,40 Z"
+        android:fillColor="#181310" />
+
+    <!-- Gold Chain & Shirt Collar -->
+    <path
+        android:pathData="M51,49 C54,54 60,54 63,49"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:strokeColor="#F59E0B" />
+    <path
+        android:pathData="M44,48 L48,60 L66,60 L70,48 Z"
+        android:fillColor="#F8FAFC" />
+
+    <!-- 4. Pointing Hand (Right Side) -->
+    <path
+        android:pathData="M68,44 C72,43 78,47 78,50 C78,52 74,54 70,54 Z"
+        android:fillColor="#E2A779" />
+    <path
+        android:pathData="M78,50 L84,48 C85,48 85,50 84,51 L77,54 Z"
+        android:fillColor="#D49466" />
+
+    <!-- 5. Front-Facing Dynamic Studio Microphone (Hero Foreground Left) -->
+    <!-- Mic Cable / Stand -->
+    <path
+        android:pathData="M35,60 L38,82"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeColor="#1E293B" />
+    <path
+        android:pathData="M37,62 L40,82"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeColor="#64748B" />
+
+    <!-- Hand gripping mic -->
+    <path
+        android:pathData="M30,55 C27,55 26,62 30,65 C34,67 40,65 41,60 C41,56 36,55 30,55 Z"
+        android:fillColor="#E2A779" />
+
+    <!-- Mic Mesh Capsule (Front Tilt) -->
+    <path
+        android:pathData="M27,37 C27,33 42,33 42,37 L40,54 C40,57 29,57 29,54 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="27"
+                android:startY="33"
+                android:endX="42"
+                android:endY="57"
+                android:type="linear">
+                <item android:color="#475569" android:offset="0.0" />
+                <item android:color="#1E293B" android:offset="0.5" />
+                <item android:color="#0F172A" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Mic Crown Emblem -->
+    <path
+        android:pathData="M32,44 L33,47 L35,44 L37,47 L38,44 L38,49 L32,49 Z"
+        android:fillColor="#FBBF24" />
+
+    <!-- 6. Sticky Note ("RECORD DUB REPEAT") on Right -->
+    <path
+        android:pathData="M77,36 L94,37 L93,52 L76,51 Z"
+        android:fillColor="#F0FDF4"
+        android:strokeWidth="1"
+        android:strokeColor="#059669" />
+    <path
+        android:pathData="M79,40 L90,40 M79,44 L90,44 M79,48 L87,48"
+        android:strokeWidth="1"
+        android:strokeLineCap="round"
+        android:strokeColor="#047857" />
+
+    <!-- 7. Bottom Metallic 3D "DubStage" Chrome Badge -->
+    <!-- Outer Chrome Bevel Shadow/Plate -->
+    <path
+        android:pathData="M12,74 C12,70 96,70 96,74 L93,98 C93,101 15,101 15,98 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="70"
+                android:endX="54"
+                android:endY="101"
+                android:type="linear">
+                <item android:color="#0284C7" android:offset="0.0" />
+                <item android:color="#0369A1" android:offset="0.5" />
+                <item android:color="#082F49" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Chrome Outer Rim Border -->
+    <path
+        android:pathData="M12,74 C12,70 96,70 96,74 L93,98 C93,101 15,101 15,98 Z"
+        android:strokeWidth="1.8"
+        android:strokeColor="#38BDF8" />
+
+    <!-- Inner Dark Plate -->
+    <path
+        android:pathData="M15,76 C15,73 93,73 93,76 L90,96 C90,98 18,98 18,96 Z"
+        android:fillColor="#0B1528" />
+
+    <!-- Stylized 3D DubStage Lettering & Star -->
+    <!-- Yellow Star Splash Accent -->
+    <path
+        android:pathData="M54,82 L57,86 L62,87 L58,90 L59,95 L54,92 L49,95 L50,90 L46,87 L51,86 Z"
+        android:fillColor="#FBBF24" />
+
+    <!-- Chrome Letters "D U B S T A G E" Outline Blocks -->
+    <!-- "D" -->
+    <path
+        android:pathData="M20,80 L25,80 C28,80 29,82 29,85 C29,88 28,90 25,90 L20,90 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M23,83 L25,83 C26,83 26,84 26,85 C26,86 26,87 25,87 L23,87 Z"
+        android:fillColor="#0B1528" />
+
+    <!-- "u" -->
+    <path
+        android:pathData="M31,83 L33,83 L33,88 C33,89 34,90 35,90 C36,90 37,89 37,88 L37,83 L39,83 L39,88 C39,91 37,92 35,92 C33,92 31,91 31,88 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- "b" -->
+    <path
+        android:pathData="M41,78 L43,78 L43,83 C44,82 45,82 46,82 C48,82 49,84 49,87 C49,90 48,92 46,92 C45,92 44,91 43,90 L43,92 L41,92 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M43,85 C44,84 45,84 46,85 C47,86 47,88 46,89 C45,90 44,90 43,89 Z"
+        android:fillColor="#0B1528" />
+
+    <!-- "Stage" Script Wave -->
+    <path
+        android:pathData="M61,81 L65,81 C64,84 66,84 66,86 C66,88 64,89 62,89 M68,83 L71,83 L71,89 M73,85 C73,83 76,83 76,85 L76,89 M78,85 C78,83 81,83 81,85 L81,89"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeColor="#FFFFFF" />
+
+    <!-- Equalizer Audio Waveform Bars (Bottom Right in Yellow) -->
+    <path
+        android:pathData="M70,94 L70,97 M73,93 L73,98 M76,92 L76,99 M79,94 L79,97 M82,91 L82,100 M85,93 L85,98 M88,94 L88,97"
+        android:strokeWidth="1.4"
+        android:strokeLineCap="round"
+        android:strokeColor="#FBBF24" />
+</vector>

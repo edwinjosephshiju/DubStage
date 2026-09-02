@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Base Background Canvas: Vibrant Pop Yellow to Deep Studio Blue -->
+    <path
+        android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="16"
+                android:startY="8"
+                android:endX="96"
+                android:endY="102"
+                android:type="linear">
+                <item android:color="#FFE838" android:offset="0.0" />
+                <item android:color="#FDB813" android:offset="0.45" />
+                <item android:color="#0F2B5C" android:offset="0.75" />
+                <item android:color="#061229" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Retro Studio Top-Left Glow -->
+    <path
+        android:pathData="M18,14m-18,0a18,18 0 1,0 36,0a18,18 0 1,0 -36,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="18"
+                android:startY="0"
+                android:endX="18"
+                android:endY="32"
+                android:type="linear">
+                <item android:color="#80FFFFFF" android:offset="0.0" />
+                <item android:color="#00FFE838" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Retro Neon Blue Rim Vignette at Bottom -->
+    <path
+        android:pathData="M0,74 C20,70 88,70 108,74 L108,108 L0,108 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="72"
+                android:endX="54"
+                android:endY="108"
+                android:type="linear">
+                <item android:color="#0007132B" android:offset="0.0" />
+                <item android:color="#E0071736" android:offset="0.4" />
+                <item android:color="#FF040D20" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>
