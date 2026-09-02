@@ -392,7 +392,7 @@ object DemucsEngine {
         }
     }
 
-    private fun extractPeaks(pcm: FloatArray, count: Int): List<Float> {
+    fun extractPeaks(pcm: FloatArray, count: Int): List<Float> {
         if (pcm.isEmpty()) return emptyList()
         val step = max(1, pcm.size / count)
         val peaks = mutableListOf<Float>()

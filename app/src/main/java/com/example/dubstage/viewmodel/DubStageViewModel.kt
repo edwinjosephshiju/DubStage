@@ -431,6 +431,20 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
                 return@launch
             }
 
+            // Audition backing track simultaneously in headphones/speaker during take recording (matching DubStage desktop)
+            val stemResult = pack.demucsStemResult
+            val backingSlice = if (stemResult != null && stemResult.backingPcm.isNotEmpty()) {
+                val start = (line.startSeconds * AudioRecordEngine.SAMPLE_RATE).toInt().coerceIn(0, stemResult.backingPcm.size)
+                val end = ((line.startSeconds + line.durationSeconds + 0.7f) * AudioRecordEngine.SAMPLE_RATE).toInt().coerceIn(start, stemResult.backingPcm.size)
+                if (end > start) stemResult.backingPcm.copyOfRange(start, end) else null
+            } else if (pack.hasBackingTrack) {
+                AudioSynth.synthesizeBackingTrack(line.durationSeconds + 0.7f, pack.videoSceneType)
+            } else null
+
+            if (backingSlice != null) {
+                AudioSynth.playFloatArray(backingSlice)
+            }
+
             // Auto-stop after line duration + 0.7s tail (matching DubStage TAIL = 0.7s)
             val recordingTimeMs = ((line.durationSeconds + 0.7f) * 1000L).toLong()
             delay(recordingTimeMs)
@@ -1232,7 +1246,20 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
         val segments = _uiState.value.forgeSegments
         if (segments.isEmpty()) return
 
+        val stemResult = _uiState.value.demucsStemResult
+        val vocalsPcm = stemResult?.vocalsPcm ?: FloatArray(0)
+        val sr = AudioRecordEngine.SAMPLE_RATE
+
         val lines = segments.mapIndexed { idx, seg ->
+            val startSample = (seg.startSeconds * sr).toInt().coerceIn(0, vocalsPcm.size)
+            val endSample = (seg.endSeconds * sr).toInt().coerceIn(startSample, vocalsPcm.size)
+            val linePeaks = if (endSample > startSample && vocalsPcm.isNotEmpty()) {
+                val slice = vocalsPcm.copyOfRange(startSample, endSample)
+                DemucsEngine.extractPeaks(slice, 55)
+            } else {
+                generateSyntheticLinePeaks(55)
+            }
+
             DubLine(
                 id = "custom_${idx + 1}",
                 index = idx + 1,
@@ -1241,7 +1268,7 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
                 startSeconds = seg.startSeconds,
                 durationSeconds = seg.durationSeconds,
                 caption = seg.caption.ifBlank { "Dialogue line #${idx + 1} for ${seg.label}." },
-                originalPeaks = generateSyntheticLinePeaks(50)
+                originalPeaks = linePeaks
             )
         }
 
