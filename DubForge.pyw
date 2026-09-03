@@ -1550,7 +1550,7 @@ class App(tk.Tk):
         if dur_s <= 0.005:
             return
 
-        voc_src = self.vocals_path if (self.vocals_path and os.path.isfile(self.vocals_path)) else None
+        voc_src = self.vocals_path if (self.vocals_path and os.path.isfile(self.vocals_path)) else self.audio_path
         bgm_src = self.backing_path if (self.backing_path and os.path.isfile(self.backing_path)) else None
 
         # Synchronisierte Sounddevice-Wiedergabe beider Spuren (Vocals + BGM)
@@ -1909,7 +1909,7 @@ class App(tk.Tk):
             shutil.rmtree(dest)
         os.makedirs(dest)
         dub = bool(self.is_dub.get())
-        src_audio = self.vocals_path
+        src_audio = self.vocals_path if (self.vocals_path and os.path.isfile(self.vocals_path)) else self.audio_path
 
         lines = [t("ts_head", name)]
 
@@ -1966,7 +1966,7 @@ class App(tk.Tk):
             shutil.rmtree(dest)
         os.makedirs(dest)
         dub = bool(self.is_dub.get())
-        src_audio = self.vocals_path
+        src_audio = self.vocals_path if (self.vocals_path and os.path.isfile(self.vocals_path)) else self.audio_path
 
         # Ein Bild je Figur - genau so machen es echte Packs.
         images = {}
