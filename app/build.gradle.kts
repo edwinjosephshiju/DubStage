@@ -126,6 +126,9 @@ dependencies {
   implementation(libs.logging.interceptor)
   implementation(libs.moshi.kotlin)
   implementation(libs.okhttp)
+  // PyTorch Mobile for Native C++ LibTorch Inference
+  implementation("org.pytorch:pytorch_android:2.1.0")
+  implementation("org.pytorch:pytorch_android_torchvision:2.1.0")
   // implementation(libs.play.services.location)
   implementation(libs.retrofit)
   testImplementation(libs.androidx.compose.ui.test.junit4)
