@@ -661,12 +661,9 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
         if (pcm.isEmpty()) return
 
         val fullModelState = _uiState.value.modelsState[AiModelType.HTDEMUCS_FT_FULL]
-        val fastModelState = _uiState.value.modelsState[AiModelType.HTDEMUCS_FT]
         
         val activeModel = if (fullModelState?.status == ModelStatus.INSTALLED) {
             fullModelState
-        } else if (fastModelState?.status == ModelStatus.INSTALLED) {
-            fastModelState
         } else {
             null
         }
@@ -675,7 +672,7 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
             _uiState.update {
                 it.copy(
                     isDemucsProcessing = false,
-                    demucsProcessingStep = "Error: AI Model missing. Go to Settings and download the htdemucs_ft model."
+                    demucsProcessingStep = "Error: AI Model missing. Go to Settings and download the htdemucs_ft Full Weights (FP32) model."
                 )
             }
             return
