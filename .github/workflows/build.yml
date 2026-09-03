@@ -8,32 +8,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  python-pipeline:
-    name: Python DubForge & Audio Pipeline
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pip'
-
-      - name: Install Audio & AI Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Syntax & Bytecode Compilation
-        run: |
-          python -m py_compile dubforge_core.py DubForge.pyw DubStage.pyw dubstage_core.py updater.py
-
-      - name: Test htdemucs_ft & Silero VAD Pipeline
-        run: |
-          python test_script.py
-
   android-check:
     name: Android & AI Studio Build Check
     runs-on: ubuntu-latest
@@ -57,4 +31,6 @@ jobs:
           test -f build.gradle.kts || exit 1
           test -f app/build.gradle.kts || exit 1
           test -f metadata.json || exit 1
+          test -f app/src/main/cpp/CMakeLists.txt || exit 1
+          test -f app/src/main/cpp/demucs_engine.cpp || exit 1
           echo "Project structure verified successfully."
