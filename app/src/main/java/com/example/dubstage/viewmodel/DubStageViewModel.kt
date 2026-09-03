@@ -660,8 +660,29 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
         val pcm = _uiState.value.forgeAudioPcm
         if (pcm.isEmpty()) return
 
+        val fullModelState = _uiState.value.modelsState[AiModelType.HTDEMUCS_FT_FULL]
+        val fastModelState = _uiState.value.modelsState[AiModelType.HTDEMUCS_FT]
+        
+        val activeModel = if (fullModelState?.status == ModelStatus.INSTALLED) {
+            fullModelState
+        } else if (fastModelState?.status == ModelStatus.INSTALLED) {
+            fastModelState
+        } else {
+            null
+        }
+
+        if (activeModel == null || activeModel.localFilePath == null) {
+            _uiState.update {
+                it.copy(
+                    isDemucsProcessing = false,
+                    demucsProcessingStep = "Error: AI Model missing. Go to Settings and download the htdemucs_ft model."
+                )
+            }
+            return
+        }
+
         viewModelScope.launch {
-            val isFullWeightInstalled = _uiState.value.modelsState[AiModelType.HTDEMUCS_FT_FULL]?.status == ModelStatus.INSTALLED
+            val isFullWeightInstalled = activeModel.type == AiModelType.HTDEMUCS_FT_FULL
 
             _uiState.update {
                 it.copy(
@@ -672,7 +693,17 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
             delay(120L)
 
             // Step 1: Main htdemucs_ft model stem separation (Vocals + BGM containing all sfx, music, etc.)
-            val result = DemucsEngine.separateStems(pcm, isFullFp32Weight = isFullWeightInstalled)
+            val result = try {
+                DemucsEngine.separateStems(activeModel.localFilePath, pcm, isFullFp32Weight = isFullWeightInstalled)
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        isDemucsProcessing = false,
+                        demucsProcessingStep = "Error: Failed to run AI Model. ${e.message}"
+                    )
+                }
+                return@launch
+            }
 
             _uiState.update {
                 it.copy(

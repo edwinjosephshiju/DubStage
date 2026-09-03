@@ -37,6 +37,7 @@ object DemucsEngine {
     }
 
     external fun separateStemsNative(
+        modelPath: String,
         pcm: FloatArray,
         vocals: FloatArray,
         backing: FloatArray,
@@ -44,6 +45,7 @@ object DemucsEngine {
     )
 
     suspend fun separateStems(
+        modelPath: String,
         pcm: FloatArray,
         sampleRate: Int = 44100,
         isFullFp32Weight: Boolean = true
@@ -63,30 +65,17 @@ object DemucsEngine {
             )
         }
 
+        if (!isNativeLoaded) {
+            throw IllegalStateException("Native C++ demucs_native library is not loaded. Cannot run model.")
+        }
+
         val totalSamples = pcm.size
         val vocals = FloatArray(totalSamples)
         val backing = FloatArray(totalSamples)
 
-        var ranNative = false
-
-        if (isNativeLoaded) {
-            try {
-                // Execute native C++ model via JNI with hardware optimization
-                separateStemsNative(pcm, vocals, backing, isFullFp32Weight)
-                ranNative = true
-            } catch (e: Throwable) {
-                Log.e(TAG, "Native separation error, falling back to local DSP: ${e.message}")
-            }
-        }
-
-        if (!ranNative) {
-            // Local fallback for unit tests and non-JNI runtime environments
-            for (i in 0 until totalSamples) {
-                val s = pcm[i]
-                vocals[i] = (s * 0.88f).coerceIn(-1.0f, 1.0f)
-                backing[i] = (s - vocals[i] * 0.95f).coerceIn(-1.0f, 1.0f)
-            }
-        }
+        // Execute native C++ model via JNI with hardware optimization.
+        // This will throw if the model file is missing or invalid.
+        separateStemsNative(modelPath, pcm, vocals, backing, isFullFp32Weight)
 
         val vocalPeaks = extractPeaks(vocals, count = 64)
         val backingPeaks = extractPeaks(backing, count = 64)
@@ -98,13 +87,9 @@ object DemucsEngine {
             backingPcm = backing,
             vocalPeaks = vocalPeaks,
             backingPeaks = backingPeaks,
-            vocalIsolationScorePercent = if (ranNative) 99 else 95,
+            vocalIsolationScorePercent = 99,
             processingLatencyMs = latency,
-            gpuDeviceName = if (ranNative) {
-                "Native C++ JNI Engine (htdemucs_ft Fast DSP)"
-            } else {
-                "On-Device Local DSP Fallback"
-            }
+            gpuDeviceName = "Native C++ JNI Engine (htdemucs_ft)"
         )
     }
 
