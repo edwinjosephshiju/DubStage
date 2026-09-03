@@ -846,20 +846,14 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
                 return backing
             }
 
-            // Both unmuted: check Stem Audition Mode
-            return when (state.forgeStemMode) {
-                ForgeStemMode.VOCALS -> vocals
-                ForgeStemMode.BACKING -> backing
+            // Both unmuted: mix Vocals + BGM together (matching Python reference)
+            val minLen = minOf(vocals.size, backing.size)
+            return FloatArray(minLen) { i ->
+                (vocals[i] * 0.95f + backing[i] * 0.85f).coerceIn(-1.0f, 1.0f)
             }
         }
 
-        if (state.forgeIsMuteBgm && !state.forgeIsMuteVocals) {
-            return state.demucsStemResult?.vocalsPcm ?: FloatArray(0)
-        }
-        if (state.forgeIsMuteVocals && !state.forgeIsMuteBgm) {
-            return state.demucsStemResult?.backingPcm ?: FloatArray(0)
-        }
-        return FloatArray(0)
+        return state.forgeAudioPcm
     }
 
     fun setForgeStemMode(mode: ForgeStemMode) {
@@ -989,8 +983,6 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
             when {
                 state.forgeIsMuteBgm && !state.forgeIsMuteVocals -> v
                 state.forgeIsMuteVocals && !state.forgeIsMuteBgm -> b
-                state.forgeStemMode == ForgeStemMode.VOCALS -> v
-                state.forgeStemMode == ForgeStemMode.BACKING -> b
                 else -> (v * 0.95f + b * 0.85f).coerceIn(-1.0f, 1.0f)
             }
         }
