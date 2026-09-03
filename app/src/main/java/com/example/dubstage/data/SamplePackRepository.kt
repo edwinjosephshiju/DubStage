@@ -28,7 +28,7 @@ object SamplePackRepository {
                 hasBackingTrack = true,
                 backingTrackTheme = "Cyberpunk Synthwave & Heavy Rain SFX",
                 videoAccentColor = 0xFF00E5FF,
-                videoSceneType = SceneVisualType.CYBERPUNK,
+                videoSceneType = SceneVisualType.SCI_FI,
                 lines = listOf(
                     DubLine(
                         id = "cp_line_01",
@@ -72,7 +72,7 @@ object SamplePackRepository {
                 hasBackingTrack = true,
                 backingTrackTheme = "Orchestral Strings & Mountain Winds SFX",
                 videoAccentColor = 0xFFFF7043,
-                videoSceneType = SceneVisualType.ANIME_FANTASY,
+                videoSceneType = SceneVisualType.ANIME_BATTLE,
                 lines = listOf(
                     DubLine(
                         id = "fan_line_01",

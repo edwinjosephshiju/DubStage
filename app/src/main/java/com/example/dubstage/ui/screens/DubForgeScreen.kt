@@ -487,8 +487,7 @@ fun DubForgeScreen(
                         ) {
                             val modes = listOf(
                                 Triple(ForgeStemMode.VOCALS, "🎙️ Vocals Only", "Isolate dialogue & speech"),
-                                Triple(ForgeStemMode.BACKING, "🎵 Backing/BGM", "Music & SFX track"),
-                                Triple(ForgeStemMode.FULL_MIX, "🎬 Full Mix", "Combined raw audio")
+                                Triple(ForgeStemMode.BACKING, "🎵 Backing/BGM", "Music & SFX track")
                             )
                             modes.forEach { (mode, label, _) ->
                                 val isSelected = state.forgeStemMode == mode

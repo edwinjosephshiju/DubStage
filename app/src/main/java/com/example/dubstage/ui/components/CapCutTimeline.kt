@@ -411,19 +411,7 @@ fun CapCutTimeline(
                         )
                     }
 
-                    // Track 1 Header: Video
-                    TrackHeaderRow(
-                        label = "VIDEO",
-                        color = Color(0xFF6366F1),
-                        icon = Icons.Default.Movie,
-                        isMuted = false,
-                        height = 44.dp,
-                        onToggleMute = {}
-                    )
-
-                    Spacer(Modifier.height(4.dp))
-
-                    // Track 2 Header: Vocals / Speech
+                    // Track 1 Header: Vocals / Speech
                     TrackHeaderRow(
                         label = "VOCALS",
                         color = Color(0xFF00F2FE),
@@ -435,7 +423,7 @@ fun CapCutTimeline(
 
                     Spacer(Modifier.height(4.dp))
 
-                    // Track 3 Header: BGM / Instrumental
+                    // Track 2 Header: BGM / Instrumental
                     TrackHeaderRow(
                         label = "BGM",
                         color = Color(0xFFA855F7),
@@ -447,7 +435,7 @@ fun CapCutTimeline(
 
                     Spacer(Modifier.height(4.dp))
 
-                    // Track 4 Header: Captions
+                    // Track 3 Header: Captions
                     TrackHeaderRow(
                         label = "TEXT",
                         color = Color(0xFFFFB800),
@@ -476,16 +464,7 @@ fun CapCutTimeline(
                             onScrub = onScrubPlayhead
                         )
 
-                        // 2. Track 1: Video Filmstrip
-                        VideoFilmstripTrack(
-                            durationSeconds = safeDuration,
-                            videoFileName = videoFileName,
-                            modifier = Modifier.fillMaxWidth().height(44.dp)
-                        )
-
-                        Spacer(Modifier.height(4.dp))
-
-                        // 3. Track 2: Vocals / Detected Speech Clips (Interactive)
+                        // 1. Track 1: Vocals / Detected Speech Clips (Interactive)
                         SpeechClipsTrack(
                             durationSeconds = safeDuration,
                             segments = segments,
@@ -498,7 +477,7 @@ fun CapCutTimeline(
 
                         Spacer(Modifier.height(4.dp))
 
-                        // 4. Track 3: BGM / Demucs Backing Waveform
+                        // 2. Track 2: BGM / Demucs Backing Waveform
                         BgmWaveformTrack(
                             durationSeconds = safeDuration,
                             demucsStemResult = demucsStemResult,
@@ -508,7 +487,7 @@ fun CapCutTimeline(
 
                         Spacer(Modifier.height(4.dp))
 
-                        // 5. Track 4: Captions / Dialogue Script
+                        // 3. Track 3: Captions / Dialogue Script
                         CaptionsTrack(
                             durationSeconds = safeDuration,
                             segments = segments,
@@ -736,71 +715,6 @@ private fun TimecodeRuler(
 }
 
 @Composable
-private fun VideoFilmstripTrack(
-    durationSeconds: Float,
-    videoFileName: String?,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(Color(0xFF1A1C24))
-            .border(1.dp, Color(0xFF2D303E), RoundedCornerShape(8.dp))
-    ) {
-        // Film sprocket aesthetic pattern
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            val w = size.width
-            val h = size.height
-            val frameCount = (durationSeconds * 1.5f).toInt().coerceAtLeast(4)
-
-            for (i in 0 until frameCount) {
-                val frameX = (i.toFloat() / frameCount) * w
-                val frameW = w / frameCount
-
-                // Frame thumbnail block
-                drawRoundRect(
-                    color = Color(0xFF242735),
-                    topLeft = Offset(frameX + 2f, 4f),
-                    size = Size(frameW - 4f, h - 8f),
-                    cornerRadius = CornerRadius(4f, 4f)
-                )
-
-                // Film frame separator
-                drawLine(
-                    color = Color(0xFF13151D),
-                    start = Offset(frameX, 0f),
-                    end = Offset(frameX, h),
-                    strokeWidth = 2f
-                )
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Default.Movie,
-                contentDescription = null,
-                tint = Color(0xFF818CF8),
-                modifier = Modifier.size(14.dp)
-            )
-            Spacer(Modifier.width(6.dp))
-            Text(
-                text = videoFileName ?: "Scene Video Track (1080p 60fps)",
-                fontSize = 10.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color(0xFFC7D2FE),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    }
-}
-
-@Composable
 private fun SpeechClipsTrack(
     durationSeconds: Float,
     segments: List<DetectedSegment>,
@@ -855,7 +769,7 @@ private fun SpeechClipsTrack(
                     .clickable { onSelectSegment(index) }
             ) {
                 // Real Waveform drawing inside clip block
-                Canvas(modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp)) {
+                Canvas(modifier = Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
                     val w = size.width
                     val h = size.height
                     val midY = h / 2f
@@ -894,13 +808,44 @@ private fun SpeechClipsTrack(
                             strokeWidth = 2f
                         )
                     }
+                    
+                    // Left and Right Editing Handles if selected
+                    if (isSelected) {
+                        // Left Handle
+                        drawRoundRect(
+                            color = Color.White,
+                            topLeft = Offset(0f, 0f),
+                            size = Size(8f, h),
+                            cornerRadius = CornerRadius(4f, 4f)
+                        )
+                        drawLine(
+                            color = Color.Black,
+                            start = Offset(4f, h / 2f - 6f),
+                            end = Offset(4f, h / 2f + 6f),
+                            strokeWidth = 2f
+                        )
+                        
+                        // Right Handle
+                        drawRoundRect(
+                            color = Color.White,
+                            topLeft = Offset(w - 8f, 0f),
+                            size = Size(8f, h),
+                            cornerRadius = CornerRadius(4f, 4f)
+                        )
+                        drawLine(
+                            color = Color.Black,
+                            start = Offset(w - 4f, h / 2f - 6f),
+                            end = Offset(w - 4f, h / 2f + 6f),
+                            strokeWidth = 2f
+                        )
+                    }
                 }
 
                 // Clip Title & Handle Badges
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 6.dp),
+                        .padding(horizontal = 14.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {

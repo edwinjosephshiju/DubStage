@@ -52,8 +52,7 @@ enum class StudioPhase {
 
 enum class ForgeStemMode {
     VOCALS,
-    BACKING,
-    FULL_MIX
+    BACKING
 }
 
 data class MicTestState(
@@ -724,7 +723,7 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun runForgeAutoDetect() {
-        val pcm = _uiState.value.demucsStemResult?.vocalsPcm ?: _uiState.value.forgeAudioPcm
+        val pcm = _uiState.value.demucsStemResult?.vocalsPcm ?: FloatArray(0)
         if (pcm.isEmpty()) {
             _uiState.update {
                 it.copy(
@@ -851,16 +850,6 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
             return when (state.forgeStemMode) {
                 ForgeStemMode.VOCALS -> vocals
                 ForgeStemMode.BACKING -> backing
-                ForgeStemMode.FULL_MIX -> {
-                    val maxLen = max(vocals.size, backing.size)
-                    val mix = FloatArray(maxLen)
-                    for (i in 0 until maxLen) {
-                        val v = if (i < vocals.size) vocals[i] else 0f
-                        val b = if (i < backing.size) backing[i] else 0f
-                        mix[i] = (v * 0.95f + b * 0.85f).coerceIn(-1.0f, 1.0f)
-                    }
-                    mix
-                }
             }
         }
 
@@ -870,7 +859,7 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
         if (state.forgeIsMuteVocals && !state.forgeIsMuteBgm) {
             return state.demucsStemResult?.backingPcm ?: FloatArray(0)
         }
-        return state.forgeAudioPcm
+        return FloatArray(0)
     }
 
     fun setForgeStemMode(mode: ForgeStemMode) {
@@ -979,8 +968,8 @@ class DubStageViewModel(application: Application) : AndroidViewModel(application
         }
 
         val result = state.demucsStemResult
-        val vocals = result?.vocalsPcm ?: if (!state.forgeIsMuteVocals) state.forgeAudioPcm else FloatArray(0)
-        val backing = result?.backingPcm ?: if (!state.forgeIsMuteBgm) state.forgeAudioPcm else FloatArray(0)
+        val vocals = result?.vocalsPcm ?: FloatArray(0)
+        val backing = result?.backingPcm ?: FloatArray(0)
 
         val sampleRate = AudioRecordEngine.SAMPLE_RATE
         val maxLen = max(vocals.size, backing.size)
